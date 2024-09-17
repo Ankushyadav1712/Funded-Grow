@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+  }
+  
+  .trust-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px;
+  }
+  
+  .text-container {
+    max-width: 500px;
+    padding: 20px;
+    flex: 1;
+  }
+  
+  .text-container h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .text-block {
+    margin-bottom: 20px;
+  }
+  
+  .text-block h2 {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .text-block p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .text-block a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .text-block a:hover {
+    text-decoration: underline;
+  }
+  
+  .circle-container {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .circle {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.05) 100%);
+  }
+  
+  .product-logo {
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .streak { top: 10%; left: 50%; transform: translate(-50%, -50%); }
+  .ditto { top: 30%; right: 10%; }
+  .kite { bottom: 20%; right: 10%; }
+  .sensibull { bottom: 10%; left: 30%; }
+  .coin { bottom: 50%; left: 10%; }
+  .console { top: 30%; left: 30%; }
+  .smallcase { bottom: 50%; right: 10%; }
+  .tijori { bottom: 20%; left: 10%; }
+  
+  /* Responsive styling for smaller screens */
+  @media (max-width: 768px) {
+    .trust-section {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .circle-container {
+      margin-top: 40px;
+    }
+  
+    .circle {
+      width: 250px;
+      height: 250px;
+    }
+  
+    .product-logo {
+      width: 80px;
+      height: 35px;
+      font-size: 12px;
+    }
+  }
+  

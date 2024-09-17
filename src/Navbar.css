@@ -1,0 +1,42 @@
+/* Keyframes for animation on page load */
+@keyframes slideInFromTop {
+    0% {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInFromBottom {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Hover effect for adding a shadow */
+  .shadow-animation {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .shadow-animation:hover {
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05); /* Slight scaling effect */
+  }
+  
+  /* Animating buttons on page load */
+  .animated-buttons-container .btn-animated:first-child {
+    animation: slideInFromTop 1s ease-out;
+  }
+  
+  .animated-buttons-container .btn-animated:last-child {
+    animation: slideInFromBottom 1s ease-out;
+  }
+  
