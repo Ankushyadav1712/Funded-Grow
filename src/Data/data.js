@@ -65,6 +65,30 @@ export const watchlist = [
       percent: "1.04%",
       isDown: false,
     },
+    {
+    name: "Banknifty",
+    price: 45512.4,
+    percent: "2.04%",
+    isDown: true,
+    },
+    {
+      name: "BHARTIARTL",
+      price: 541.15,
+      percent: "0.58%",
+      isDown: false,
+    },
+    {
+      name: "SBIN",
+      price: 430.2,
+      percent: "2.63%",
+      isDown: false,
+    },
+    {
+      name: "TATAPOWER",
+      price: 124.15,
+      percent:"3.45%",
+      isDown: true,
+    },
   ];
   
   // holdings
@@ -92,6 +116,7 @@ export const watchlist = [
       price: 2417.4,
       net: "+3.49%",
       day: "+0.21%",
+
     },
     {
       name: "INFY",
@@ -177,6 +202,14 @@ export const watchlist = [
       price: 577.75,
       net: "+18.08%",
       day: "+0.32%",
+    },
+    {
+      name:"Bankifty",
+      qty:3,
+      avg:789.43,
+      price:349.32,
+      net:"+31.09%",
+      day:"+0.43",
     },
   ];
   

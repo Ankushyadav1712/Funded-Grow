@@ -1,0 +1,145 @@
+/* Main Topbar Container */
+.topbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  /* Left and Right Sections */
+  .left-section, .right-section {
+    flex: 1;
+  }
+  
+  /* Flex for menu items */
+  .menu-items {
+    display: flex;
+    gap: 16px;
+  }
+  
+  /* Style for links */
+  .menu {
+    color: #4b5563; /* text-gray-600 */
+    transition: color 0.3s ease;
+  }
+  
+  .menu:hover {
+    color: #10b981; /* text-emerald-500 */
+  }
+  
+  .menu.selected {
+    color: #10b981;
+    font-weight: bold;
+  }
+  
+  /* Profile section */
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .avatar {
+    border-radius: 50%;
+    background-color: #d1d5db; /* bg-gray-300 */
+    padding: 10px;
+  }
+  
+  .username {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  /* Media query for when the screen width is 1032px or greater */
+  @media (min-width: 1032px) {
+    .topbar-container {
+      max-width: 1032px;
+      margin: 0 auto;
+    }
+  
+    .left-section, .right-section {
+      flex: 0 0 50%; /* Each section takes 50% of the width */
+    }
+  }
+
+
+
+
+/* General styles */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.space-x-4 {
+  gap: 1rem; /* Creates space between child elements */
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.m-10 {
+  margin: 2.5rem; /* Creates margin around the Log Out button */
+}
+
+/* Button (Log Out link) styles */
+.text-black {
+  color: #000;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-black {
+  border-color: #000;
+}
+
+.rounded {
+  border-radius: 0.375rem;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Log Out button specific styling */
+.no-underline.text-black.border {
+  background-color: #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.no-underline.text-black.border:hover {
+  background-color: #e2e2e2;
+}
+
+.no-underline.text-black.border:active {
+  background-color: #ccc;
+}
+
+/* Responsive styles for larger screens */
+@media (min-width: 1024px) {
+  .lg\\:flex {
+    display: flex;
+  }
+  
+  .space-x-4 {
+    gap: 1rem;
+  }
+}
+
+  

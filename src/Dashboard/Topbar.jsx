@@ -1,9 +1,10 @@
 import Menu from './Menu'
 import React from 'react'
+// import './Topbar.css';
 
 const Topbar = () => {
   return (
-    <div className='topbar-container'>
+    <div className='topbar-container w-full'>
         {/* <div className="indicies-container">
             <div className="nifty">
                 <p className='index'>Nifty 50</p>

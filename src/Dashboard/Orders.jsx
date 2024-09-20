@@ -3,13 +3,28 @@ import { Link } from "react-router-dom";
 import { stockData } from "../Data/data";
 
 import Watchlist from "./Watchlist";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../firebase";
 
-const Orders = ({ Orders }) => {
-    const [orderData,setOrderData] = useState([]);
-    useEffect(()=>{
-        setOrderData(...stockData)
-        console.log("orde",orderData)
-    },stockData)
+const Orders = ({  }) => {
+  const [orderData, setOrderData] = useState([]);
+  useEffect(async () => {
+    const user = auth.currentUser;
+    const { email, uid } = user;
+    console.log("this is user information : ", email, uid);
+    const userDocRef = doc(db, "usersData", uid);
+    const userDoc = await getDoc(userDocRef);
+    const finalStock=userDoc._document.data.value.mapValue.fields.
+    userStocks.arrayValue.values
+    ;
+    console.log(
+      "get stocks data ->  ",
+      finalStock
+    );
+
+    setOrderData(finalStock);
+    console.log("order -> ", orderData);
+  }, []);
 
   return (
     <div className="table-container">
@@ -23,14 +38,24 @@ const Orders = ({ Orders }) => {
           </tr>
         </thead>
         <tbody>
-          {stockData.map((stock, index) => (
+          {orderData.map((stock, index) => {
+            const field = stock.mapValue.fields;
+            {console.log("this is field data nested  ->  ",field.stockName.stringValue)}
+            return(
             <tr key={index}>
-              <td className="px-4 py-2 border border-gray-300">{stock.name}</td>
-              <td className="px-4 py-2 border border-gray-300">{stock.qty}</td>
-              <td className="px-4 py-2 border border-gray-300">{stock.orderType}</td>
-              <td className="px-4 py-2 border border-gray-300">₹{stock.price}</td>
+              {console.log(" this is my order data ",field)}
+              <td className="px-4 py-2 border border-gray-300">{field.stockName.stringValue}</td>
+              
+              <td className="px-4 py-2 border border-gray-300">{+field.quantity.integerValue}</td>
+              <td className="px-4 py-2 border border-gray-300">
+                {field.orderType.stringValue}
+              </td>
+              <td className="px-4 py-2 border border-gray-300">
+                ₹{Number(field.price.doubleValue) * Number(field.quantity.integerValue)}
+              </td>
             </tr>
-          ))}
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -44,13 +69,11 @@ export default Orders;
 // buyData.addEventListener('Click',function(e){
 //     e.preventDefault();
 //     const element = e.target.element;
-    // const formData = {
-    //     name:element.name,
-    //     qty: element.qty,
-    //     orderType:element.orderType,
-    //     price:element.price
-    // }
+// const formData = {
+//     name:element.name,
+//     qty: element.qty,
+//     orderType:element.orderType,
+//     price:element.price
+// }
 //     stockData.push(formData)
 // })
-
-

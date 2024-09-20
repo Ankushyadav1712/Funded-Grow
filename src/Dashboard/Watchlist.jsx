@@ -1,111 +1,58 @@
-// import React, { useState, useContext } from 'react';
-// import { Tooltip, Grow } from '@mui/material';
-// import { watchlist } from '../Data/data';
-// import {
-//   BarChartOutlined,
-//   KeyboardArrowDown,
-//   KeyboardArrowUp,
-//   MoreHoriz,
-// } from '@mui/icons-material';
-
-// const Watchlist = () => {
-//   return (
-//     <div className="watchlist-container">
-//       <div className="search-container">
-//         <input
-//           type="text"
-//           name="search"
-//           id="search"
-//           placeholder="Search Stocks"
-//           className="search"
-//         />
-//       </div>
-//       <ul className="list">
-//         {watchlist.map((stock, index) => {
-//           return <WatchListItem stock={stock} key={index} />;
-//         })}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default Watchlist;
-
-// const WatchListItem = ({ stock }) => {
-//   const [showWatchlistActions, setShowWatchlistActions] = useState(false);
-
-//   const handleMouseEnter = () => {
-//     setShowWatchlistActions(true);
-//   };
-
-//   const handleMouseLeave = () => {
-//     setShowWatchlistActions(false);
-//   };
-
-//   return (
-//     <li onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-//       <div className="item">
-//         <p className={stock.isDown ? "down" : "up"}>{stock.name}</p>
-//         <div className="itemInfo">
-//           <span className="percent">{stock.percent}</span>
-//           {stock.isDown ? (
-//             <KeyboardArrowDown className="down" />
-//           ) : (
-//             <KeyboardArrowUp className="up" />
-//           )}
-//           <span className="price">{stock.price}</span>
-//         </div>
-//       </div>
-//       {showWatchlistActions && <WatchListActions uid={stock.name} />}
-//     </li>
-//   );
-// };
-
-// const WatchListActions = ({ uid }) => {
-//   return (
-//     <span className="actions gap-3 rounded">
-//       <Tooltip title="Buy (B)" placement="top" arrow TransitionComponent={Grow}>
-//         <button className="buy">Buy</button>
-//       </Tooltip>
-//       <Tooltip title="Sell (S)" placement="top" arrow TransitionComponent={Grow}>
-//         <button className="sell">Sell</button>
-//       </Tooltip>
-//       <Tooltip title="Analytics (A)" placement="top" arrow TransitionComponent={Grow}>
-//         <button className="action">
-//           <BarChartOutlined className="icon" />
-//         </button>
-//       </Tooltip>
-//       <Tooltip title="More" placement="top" arrow TransitionComponent={Grow}>
-//         <button className="action">
-//           <MoreHoriz className="icon" />
-//         </button>
-//       </Tooltip>
-//     </span>
-//   );
-// };
-
-
-
-
-
-
-import React, { useState} from 'react';
-import { Tooltip, Grow } from '@mui/material';
-import { watchlist } from '../Data/data';
+import React, { useState, useEffect } from "react";
+import { Tooltip, Grow } from "@mui/material";
+import { watchlist } from "../Data/data";
 import {
   BarChartOutlined,
   KeyboardArrowDown,
   KeyboardArrowUp,
   MoreHoriz,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 import { stockData } from "../Data/data";
 
-// import React, { useState } from 'react';
+// for storing data in firebase
+
+import { collection, addDoc, query, where, getDocs, doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../firebase";
+import { auth } from "../firebase";
+
+// const user = auth.currentUser;
+
+// const user=localStorage.getItem('user'); 
+
+
+
 
 const Watchlist = () => {
   const [showBuyWindow, setShowBuyWindow] = useState(false);
   const [showSellWindow, setShowSellWindow] = useState(false);
   const [selectedStock, setSelectedStock] = useState(null);
+  const [searchOption, setSearchOption] = useState("");
+  const [userStocks, setUserStocks] = useState([]);
+
+  useEffect(() => {
+    console.log("kya ye useEffct chal bhi rha hai ?");
+    // Fetch user-specific stock data from Firestore
+    const fetchUserStocks = async () => {
+      const { currentUser } = auth;
+      console.log("just checking -> ", currentUser);
+      const user = auth;
+      console.log("kya ye current user present hai ? ", user);
+      if (user) {
+        const userStocksQuery = query(
+          collection(db, "usersData"),
+          where("uid", "==", user.uid)
+        );
+        console.log("this is query ", userStocksQuery);
+        const querySnapshot = await getDocs(userStocksQuery);
+        console.log(" ye hai euerySnapshot");
+        const stocks = querySnapshot.docs.map((doc) => doc.data());
+        console.log("is data is comming ? ", stocks);
+        setUserStocks(stocks); // Set the user's stock data
+      }
+    };
+
+    fetchUserStocks();
+  }, []);
 
   const handleBuyClick = (stock) => {
     setSelectedStock(stock);
@@ -125,6 +72,10 @@ const Watchlist = () => {
     setSelectedStock(null);
   };
 
+  const filterStock = watchlist.filter((stock) =>
+    stock.name.toLowerCase().includes(searchOption.toLowerCase())
+  );
+
   return (
     <div className="watchlist-container">
       <div className="search-container">
@@ -133,20 +84,24 @@ const Watchlist = () => {
           name="search"
           id="search"
           placeholder="Search Stocks"
+          value={searchOption}
           className="search"
+          onChange={(e) => setSearchOption(e.target.value)}
         />
       </div>
       <ul className="list">
-        {watchlist.map((stock, index) => {
-          return (
+        {filterStock.length > 0 ? (
+          filterStock.map((stock, index) => (
             <WatchListItem
               stock={stock}
               key={index}
               handleBuyClick={handleBuyClick}
               handleSellClick={handleSellClick}
             />
-          );
-        })}
+          ))
+        ) : (
+          <li>No matching stocks found.</li>
+        )}
       </ul>
 
       {showBuyWindow && selectedStock && (
@@ -182,7 +137,7 @@ const WatchListItem = ({ stock, handleBuyClick, handleSellClick }) => {
   return (
     <li onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="item">
-        <p className={stock.isDown ? 'down' : 'up'}>{stock.name}</p>
+        <p className={stock.isDown ? "down" : "up"}>{stock.name}</p>
         <div className="itemInfo">
           <span className="percent">{stock.percent}</span>
           {stock.isDown ? (
@@ -204,19 +159,32 @@ const WatchListItem = ({ stock, handleBuyClick, handleSellClick }) => {
   );
 };
 
-// on hover effect on watchlist items 
-
+// on hover effect on watchlist items
 
 const WatchListActions = ({ uid, handleBuyClick, handleSellClick }) => {
   return (
     <span className="actions gap-3 rounded">
       <Tooltip title="Buy (B)" placement="top" arrow TransitionComponent={Grow}>
-        <button className="buy" onClick={handleBuyClick}>Buy</button>
+        <button className="buy" onClick={handleBuyClick}>
+          Buy
+        </button>
       </Tooltip>
-      <Tooltip title="Sell (S)" placement="top" arrow TransitionComponent={Grow}>
-        <button className="sell" onClick={handleSellClick}>Sell</button>
+      <Tooltip
+        title="Sell (S)"
+        placement="top"
+        arrow
+        TransitionComponent={Grow}
+      >
+        <button className="sell" onClick={handleSellClick}>
+          Sell
+        </button>
       </Tooltip>
-      <Tooltip title="Analytics (A)" placement="top" arrow TransitionComponent={Grow}>
+      <Tooltip
+        title="Analytics (A)"
+        placement="top"
+        arrow
+        TransitionComponent={Grow}
+      >
         <button className="action">
           <BarChartOutlined className="icon" />
         </button>
@@ -230,37 +198,74 @@ const WatchListActions = ({ uid, handleBuyClick, handleSellClick }) => {
   );
 };
 
-
-
-
-
-
-
-
-
-
 // buy window for stocks to add in order section
 
 const BuyWindow = ({ stock, handleCancelClick }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(stock.price);
 
-  const handleBuyClick = () => {
+  const handleBuyClick = async () => {
+    console.log("hey this is working ? ");
     stockData.push({
-        name:stock.name,
-        qty: stockQuantity,
-        orderType:'Buy',
-        price:stockPrice
-    })
-    localStorage.setItem('updatedData',JSON.stringify(stockData))
-    console.log({
-        name:stock.name,
-        qty: stockQuantity,
-        orderType:stock.orderType,
-        price:stockPrice
-    })
+      name: stock.name,
+      qty: stockQuantity,
+      orderType: "Buy",
+      price: stockPrice,
+    });
+
+    // localStorage.setItem('updatedData', JSON.stringify(stockData));
+
+    const user = auth.currentUser;
+
+    if (user) {
+      const { displayName, email, uid } = user;
+      console.log("this is user information : ", displayName, email, uid);
+
+      try {
+        const userDocRef = doc(db, "usersData", uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          // If the document exists, update the userStocks array
+          console.log("User document found. Updating stocks...");
+
+          await updateDoc(userDocRef, {
+            userStocks: arrayUnion({
+              stockName: stock.name,
+              quantity: parseInt(stockQuantity),
+              orderType: "Buy",
+              price: stockPrice,
+            }),
+          });
+
+          console.log("Stock added to existing user document.");
+        } else {
+          // If the document does not exist, create it
+          console.log("User document not found. Creating new document...");
+
+          await setDoc(userDocRef, {
+            name: displayName || "Anonymous",
+            email: email,
+            uid: uid,
+            timestamp: new Date(),
+            userStocks: [
+              {
+                stockName: stock.name,
+                quantity: parseInt(stockQuantity),
+                orderType: "Buy",
+                price: stockPrice,
+              },
+            ],
+          });
+        }
+        console.log("Buy data successfully stored in Firestore");
+      } catch (error) {
+        console.error("Error writing buy data: ", error);
+      }
+    }
+
     alert(`Buying ${stockQuantity} of ${stock.name} at ₹${stockPrice}`);
-    handleCancelClick();  // Close window after buying
+    handleCancelClick(); // Close window after buying
   };
 
   return (
@@ -299,10 +304,17 @@ const BuyWindow = ({ stock, handleCancelClick }) => {
           Margin required: ₹{(stockQuantity * stockPrice).toFixed(2)}
         </span>
         <div className="flex justify-end gap-4 mt-4">
-          <button className="btn btn-orange bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 border-black" onClick={handleBuyClick} id='addbuydata'>
+          <button
+            className="btn btn-orange bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 border-black"
+            onClick={handleBuyClick}
+            id="addbuydata"
+          >
             Buy
           </button>
-          <button className="btn btn-grey bg-gray-300 px-4 py-2 rounded hover:bg-gray-400" onClick={handleCancelClick}>
+          <button
+            className="btn btn-grey bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+            onClick={handleCancelClick}
+          >
             Cancel
           </button>
         </div>
@@ -311,33 +323,72 @@ const BuyWindow = ({ stock, handleCancelClick }) => {
   );
 };
 
-
-
-
-
 // sell window for stocks to add in order seciton
-
 
 const SellWindow = ({ stock, handleCancelClick }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(stock.price);
 
-  const handleSellClick = () => {
-        stockData.push({
-            name:stock.name,
-            qty: stockQuantity,
-            orderType:'Sell',
-            price:stockPrice
-        })
-        localStorage.setItem('updatedData',JSON.stringify(stockData))
-        console.log({
-            name:stock.name,
-            qty: stockQuantity,
-            orderType:stock.orderType,
-            price:stockPrice
-        })
+  const handleSellClick = async () => {
+    console.log("hey this is working ? ");
+    stockData.push({
+      name: stock.name,
+      qty: parseInt(stockQuantity),
+      orderType: "Sell",
+      price: stockPrice,
+    });
+
+    const user = auth.currentUser;
+
+    if (user) {
+      const { displayName, email, uid } = user;
+      console.log("this is user information : ", displayName, email, uid);
+
+      try {
+        const userDocRef = doc(db, "usersData", uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+          // If the document exists, update the userStocks array
+          console.log("User document found. Updating stocks...");
+
+          await updateDoc(userDocRef, {
+            userStocks: arrayUnion({
+              stockName: stock.name,
+              quantity: parseInt(stockQuantity),
+              orderType: "Sell",
+              price: stockPrice,
+            }),
+          });
+
+          console.log("Stock added to existing user document.");
+        } else {
+          // If the document does not exist, create it
+          console.log("User document not found. Creating new document...");
+
+          await setDoc(userDocRef, {
+            name: displayName || "Anonymous",
+            email: email,
+            uid: uid,
+            timestamp: new Date(),
+            userStocks: [
+              {
+                stockName: stock.name,
+                quantity: stockQuantity,
+                orderType: "Buy",
+                price: stockPrice,
+              },
+            ],
+          });
+        }
+        console.log("Buy data successfully stored in Firestore");
+      } catch (error) {
+        console.error("Error writing buy data: ", error);
+      }
+    }
+
     alert(`Selling ${stockQuantity} of ${stock.name} at ₹${stockPrice}`);
-    handleCancelClick();  // Close window after selling
+    handleCancelClick(); // Close window after after
   };
 
   return (
@@ -376,10 +427,16 @@ const SellWindow = ({ stock, handleCancelClick }) => {
           Amount received: ₹{(stockQuantity * stockPrice).toFixed(2)}
         </span>
         <div className="flex justify-end gap-4 mt-4">
-          <button className="btn btn-orange  text-red-500 px-4 py-2 rounded hover:bg-blue-700 border-black" onClick={handleSellClick}>
+          <button
+            className="btn btn-orange  text-red-500 px-4 py-2 rounded hover:bg-blue-700 border-black"
+            onClick={handleSellClick}
+          >
             Sell
           </button>
-          <button className="btn btn-grey bg-gray-300 px-4 py-2 rounded hover:bg-gray-400" onClick={handleCancelClick}>
+          <button
+            className="btn btn-grey bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+            onClick={handleCancelClick}
+          >
             Cancel
           </button>
         </div>
@@ -387,8 +444,3 @@ const SellWindow = ({ stock, handleCancelClick }) => {
     </div>
   );
 };
-
-
-
-
-

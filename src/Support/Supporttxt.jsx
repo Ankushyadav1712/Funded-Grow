@@ -8,9 +8,9 @@ const Supporttxt = () => {
       <h1>Support</h1>
 
       {/* Search Bar */}
-      <div className="search-section">
+      {/* <div className="search-section">
         <input type="text" placeholder="Search for help..." className='bg-white border border-black ' />
-      </div>
+      </div> */}
 
       {/* FAQ Section */}
       <div className="faq-section mt-5 mb-4 p-3 pb-4">
