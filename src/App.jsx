@@ -5,7 +5,6 @@ import React from "react";
 
 import Register from "./pages/register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login/Login";
 import About from "./pages/About/About";
 import Pricing from "./pages/Pricing/Pricing";
 import Support from "./pages/Support/Support";
@@ -17,6 +16,7 @@ import Holding from "./pages/Dashboard/Holding";
 import Positions from "./pages/Dashboard/Positions";
 import Funds from "./pages/Dashboard/Funds";
 import Summary from "./pages/Dashboard/Summary";
+import Login from "./pages/login/Login";
 
 const App = () => {
   return (
