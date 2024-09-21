@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Tooltip, Grow } from "@mui/material";
-import { watchlist } from "../Data/data";
+import { watchlist } from "../helper/data";
 import {
   BarChartOutlined,
   KeyboardArrowDown,
   KeyboardArrowUp,
   MoreHoriz,
 } from "@mui/icons-material";
-import { stockData } from "../Data/data";
+import { stockData } from "../helper/data";
 
 // for storing data in firebase
 

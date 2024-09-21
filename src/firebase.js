@@ -50,7 +50,7 @@
 
 // firebase.js
 
-import { initializeApp, getApps } from 'firebase/app'; // Import getApps to check for existing apps
+import { initializeApp } from 'firebase/app'; // Import getApps to check for existing apps
 import { getFirestore } from 'firebase/firestore'; 
 import { getAuth } from 'firebase/auth';
 
@@ -62,7 +62,6 @@ const firebaseConfig = {
      messagingSenderId: import.meta.env.VITE_SENDER_KEY,
      appId: import.meta.env.VITE_APP_ID,
 };
-
 // Check if any Firebase apps have already been initialized
 // const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 
@@ -71,6 +70,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+debugger
 export { db, auth };
 
 

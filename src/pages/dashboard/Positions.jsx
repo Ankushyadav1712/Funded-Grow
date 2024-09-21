@@ -1,5 +1,5 @@
 import React from "react";
-import { positions } from "../Data/data";
+import { positions } from "../../helper/data";
 
 
 

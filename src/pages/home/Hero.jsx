@@ -1,8 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import homeImg from "../assets/videoHome.jpg";
-import homeImg2 from "../assets/Home Hero.png";
 import "./Hero.css";
 import { Link } from "react-router-dom";
 

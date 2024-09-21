@@ -1,6 +1,6 @@
 import React from 'react'
-import img1 from '../assets/Equity Pricing.svg'
-import img2 from '../assets/Intraday Trades.svg'
+import img1 from '../../assets/Equity Pricing.svg'
+import img2 from '../../assets/Intraday Trades.svg'
 
 const HeroPricing = () => {
   return (

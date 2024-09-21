@@ -1,15 +1,13 @@
 import React from 'react'
-
-import Navbar from '../Navbar'
+import Navbar from '../../components/Navbar'
 import Hero from './Hero'
 import Stats from './Stats'
-import Footer from '../Footer'
-import './Homepage.css'
+import Footer from '../../components/Footer'
 
 const Homepage = () => {
   return (
     <>
-        <Navbar/>
+    <Navbar/>
         <Hero/>
         <Stats/>
         <Footer/>

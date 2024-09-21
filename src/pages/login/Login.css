@@ -15,6 +15,11 @@
     height: 60px;
     animation: spin 1s linear infinite;
   }
+  .disabled {
+    pointer-events: none;
+    color: gray;
+    cursor: not-allowed;
+  }
   
   @keyframes spin {
     0% { transform: rotate(0deg); }

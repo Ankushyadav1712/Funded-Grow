@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { holdings1 } from '../Data/data'
+import { holdings1 } from '../../helper/data'
 const Holding = () => {
   return (
     <>

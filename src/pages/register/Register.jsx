@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./pages.css";
-import './Login.css';
+import './Register.css';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 
@@ -62,7 +61,7 @@ useEffect(() => {
 
         setTimeout(() => {
           setLoading(false);
-          navigate("/dashboard");
+          navigate("/login");
           setEmail('');
           setPassword('');
           setName('');
