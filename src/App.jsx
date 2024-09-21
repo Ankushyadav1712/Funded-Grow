@@ -5,7 +5,7 @@ import React from "react";
 
 import Register from "./pages/register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import About from "./pages/About/About";
+import About from "./pages/about/About";
 import Pricing from "./pages/Pricing/Pricing";
 import Support from "./pages/Support/Support";
 import Calucaltor from "./pages/Calculator/Calculator";
