@@ -44,8 +44,8 @@ const Menu = () => {
             <div className="col-4"></div>
 
             {/* Menu items */}
-            <div className="lg:flex space-x-8 col-8 ">
-              <NavLink
+            <div className="lg:flex space-x-8 col-8  no-underline">
+              <NavLink 
                 to="/summary"
                 className={({ isActive, isPending }) =>
                   isPending ? "pending" : isActive ? activeMenuClass : menuClass

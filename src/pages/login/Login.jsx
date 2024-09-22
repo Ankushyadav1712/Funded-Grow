@@ -86,7 +86,8 @@ const Login = () => {
                 className={`SignIn no-underline text-center ${
                   isFormValid() ? "" : "disabled"
                 }`}
-                onClick={handleLinkClick}
+                type="submit"
+                // onClick={handleLinkClick}
               >
                 Login
               </Link>
