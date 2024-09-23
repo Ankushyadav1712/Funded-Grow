@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    flex-wrap:  wrap;
   }
   
   /* Left and Right Sections */
@@ -141,5 +142,27 @@
     gap: 1rem;
   }
 }
+
+
+@media (min-width: 344px) {
+  .lg\\:flex {
+    display: flex;
+  }
+  
+  .topbar-container{
+    width: 100%;
+  }
+
+
+  .space-x-4 {
+    gap: 1rem;
+  }
+}
+
+
+
+
+
+
 
   

@@ -26,11 +26,11 @@ const Menu = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
-  const menuClass = "menu text-gray-600 hover:text-emerald-500";
-  const activeMenuClass = "menu selected text-emerald-500 font-bold";
+  const menuClass = "menu text-gray-600 hover:text-emerald-500 no-underline";
+  const activeMenuClass = "menu selected text-emerald-500 font-bold no-underline";
 
   return (
-    <div className="topbar-container w-full">
+    <div className="topbar-container ">
       <nav className="col-8">
         <div>
           <div className="container mx-auto flex justify-between items-center col-12">
