@@ -6,8 +6,8 @@ const Funds = () => {
     <>
       <div className="funds">
         <p className="mb-5">Instant, zero-cost fund transfers with UPI </p>
-        <Link className="btn btn-green border mt-5">Add funds</Link>
-        <Link className="btn btn-blue border mt-5">Withdraw</Link>
+        {/* <Link className="btn btn-green border mt-5">Add funds</Link>
+        <Link className="btn btn-blue border mt-5">Withdraw</Link> */}
       </div>
 
       <div className="row">
