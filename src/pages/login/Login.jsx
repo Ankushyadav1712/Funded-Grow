@@ -87,7 +87,7 @@ const Login = () => {
                   isFormValid() ? "" : "disabled"
                 }`}
                 type="submit"
-                // onClick={handleLinkClick}
+                onClick={handleLinkClick}
               >
                 Login
               </Link>
