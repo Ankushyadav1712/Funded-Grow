@@ -175,7 +175,7 @@ const Menu = () => {
   return (
     <div className="topbar-container ">
       <nav className="col-8 flex">
-        <div className="container mx-auto flex justify-around items-center col-12 ">
+        <div className="container mx-auto flex justify-around items-center col-12 mt-3 ">
           {/* Logo */}
           <div className="text-black text-2xl font-bold">
             Funded{" "}
@@ -249,7 +249,7 @@ const Menu = () => {
           <div className="col-2"></div>
           <div className="lg:flex items-center space-x-4">
             <div className="profile flex items-center mt-4">
-              <div className="avatar bg-white text-black px-3 py-2 rounded-full mr-2 mt-2 border text-5xl">
+              <div className="avatar bg-white text-black px-3 py-2 rounded-full mr-2 mt-3 border text-5xl">
                 F<span className="text-green-500">G</span>
               </div>
               <p
