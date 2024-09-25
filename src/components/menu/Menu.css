@@ -5,6 +5,7 @@
     align-items: center;
     padding: 0 20px;
     flex-wrap:  wrap;
+    width: 100%;
   }
   
   /* Left and Right Sections */
@@ -16,6 +17,7 @@
   .menu-items {
     display: flex;
     gap: 16px;
+    flex-wrap: wrap;
   }
   
   /* Style for links */
@@ -38,6 +40,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
   }
   
   .avatar {
@@ -144,25 +147,9 @@
 }
 
 
-@media (min-width: 344px) {
-  .lg\\:flex {
-    display: flex;
-  }
-  
-  .topbar-container{
-    width: 100%;
-  }
-
-
-  .space-x-4 {
-    gap: 1rem;
-  }
-}
 
 
 
 
 
 
-
-  
