@@ -269,7 +269,7 @@ const BuyWindow = ({ stock, handleCancelClick }) => {
   };
 
   return (
-    <div className="con fixed top-36  left-1/2 transform -translate-x-1/4 -translate-y-1/2 w-1/3 p-6 bg-gray-300 shadow-xl rounded">
+    <div className="con fixed top-36  left-1/2 right-1/2 transform -translate-x-1/4 -translate-y-1/2 w-1/3 p-6 bg-gray-300 shadow-xl rounded">
       <div className="regular-order w-full">
         <h2 className="text-xl font-bold mb-4">Buy {stock.name}</h2>
         <div className="inputs grid grid-cols-2 gap-4 ">

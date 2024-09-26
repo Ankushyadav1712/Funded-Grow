@@ -196,7 +196,7 @@ const Menu = () => {
           <div
             className={`${
               isMenuOpen ? "block" : "hidden"
-            } lg:flex space-x-6 no-underline absolute lg:relative top-16 left-0 right-0 bg-white lg:bg-transparent lg:top-auto lg:left-auto lg:right-auto lg:space-x-4 p-4 lg:p-0 border lg:border-0 shadow lg:shadow-none z-50`}
+            } lg:flex space-x-6 no-underline absolute lg:relative  lg:bg-transparent top-16 left-0 right-0 bg-gray-300  lg:top-auto lg:left-auto lg:right-auto lg:space-x-4 p-4 lg:p-0 border lg:border-0 shadow lg:shadow-none z-50`}
           >
             <NavLink
               to="/summary"
